@@ -105,6 +105,9 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
         git clone https://github.com/Shas45558/AnyKernel3.git
+        if [ ${{ env.CHECK_FILE_IS_OK }} = true ]; then
+            cp android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/${{ env.KERNEL_FILE }} AnyKernel3/
+        fi      
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
 
     - name: Upload AnyKernel3
