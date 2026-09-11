@@ -54,7 +54,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
         git clone ${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_SOURCE_BRANCH }} android-kernel --depth=1
-        # cat android-kernel/arch/arm64/configs/vendor/lancelot.config >> android-kernel/arch/arm64/configs/vendor/mt6768_defconfig
+        cat android-kernel/arch/arm64/configs/vendor/lancelot.config >> android-kernel/arch/arm64/configs/vendor/mt6768_defconfig
 
 
     - name: Setup KernelSU
