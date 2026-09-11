@@ -54,6 +54,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
         git clone ${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_SOURCE_BRANCH }} android-kernel --depth=1
+        cat android-kernel/arch/arm64/configs/vendor/lancelot.config >> android-kernel/arch/arm64/configs/vendor/mt6768_defconfig
 
 
     - name: Setup KernelSU
@@ -75,7 +76,6 @@ jobs:
         export KBUILD_COMPILER_STRING="$(clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
         export KBUILD_BUILD_HOST=GitHub-Action
         export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
-        cat arch/arm64/configs/vendor/lancelot.config >> arch/arm64/configs/vendor/mt6768_defconfig
         make -j$(nproc --all) O=out ARCH=${{ env.TARGET_ARCH }} CC=clang ${{ env.KERNEL_DEFCONFIG }}
 
     - name: Build kernel
